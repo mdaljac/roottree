@@ -16,4 +16,9 @@ export default defineNuxtConfig({
 			apiBase: "", // can be overridden by NUXT_PUBLIC_API_BASE environment variable
 		},
 	},
+	gsap: {
+		extraPlugins: {
+			scrollTrigger: true,
+		},
+	},
 });

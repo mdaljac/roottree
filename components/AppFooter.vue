@@ -1,5 +1,5 @@
 <template>
-	<footer>this is App Footer component</footer>
+	<footer></footer>
 </template>
 
 <script setup></script>

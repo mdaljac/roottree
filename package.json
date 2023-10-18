@@ -17,6 +17,7 @@
     "nuxt": "^3.7.4"
   },
   "dependencies": {
-    "@nuxt/image": "^1.0.0-rc.2"
+    "@nuxt/image": "^1.0.0-rc.2",
+    "vivus": "^0.4.6"
   }
 }

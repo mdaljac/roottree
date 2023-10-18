@@ -9,6 +9,15 @@ export default {
 		"./app.vue",
 	],
 	theme: {
+		fontFamily: {
+			mono: ["'Anonymous Pro'"],
+		},
+
+		fontWeight: {
+			normal: "400",
+			bold: "700",
+		},
+
 		container: {
 			center: true,
 			padding: "2rem",
@@ -16,8 +25,13 @@ export default {
 
 		extend: {
 			colors: {
-				primary: "green",
+				primary: "#3BBD9E",
 				secondary: "blue",
+			},
+			screens: {
+				fhd: "1920px",
+				"fhd+": "1921px",
+				wide: "2560px",
 			},
 		},
 	},
