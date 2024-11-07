@@ -1,7 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
 	return {
-		provide: {
-			pixelRatio: window.devicePixelRatio,
-		},
+		// provide: {
+		// 	pixelRatio: window.devicePixelRatio,
+		// },
 	};
 });

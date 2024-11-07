@@ -1,5 +1,5 @@
 <template>
-	<div class="container space-y-5">
+	<div>
 		<AppHeader />
 		<NuxtPage />
 		<AppFooter />

@@ -6,6 +6,7 @@ const preloaderAnimEasing = "power4.out";
 export const usePreloader = () => {
 	const { $gsap, $pixelRatio } = useNuxtApp();
 	const { isMobile, isTablet, isDesktop } = useDevice();
+	const pageMounted = ref(false);
 
 	const showPreloader = () => {
 		$gsap.to("#preloader", {
@@ -53,7 +54,11 @@ export const usePreloader = () => {
 				"<",
 			)
 			.to({}, { duration: 2 })
-			.to("#preloader", { autoAlpha: 0, pointerEvents: "none" });
+			.to("#preloader", {
+				autoAlpha: 0,
+				pointerEvents: "none",
+				onComplete: () => (pageMounted.value = true),
+			});
 	};
 
 	onMounted(() => {
@@ -91,5 +96,6 @@ export const usePreloader = () => {
 		isLoading,
 		showPreloader,
 		hidePreloader,
+		pageMounted,
 	};
 };

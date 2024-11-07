@@ -11,6 +11,7 @@ export default {
 	theme: {
 		fontFamily: {
 			mono: ["'Anonymous Pro'"],
+			sans: ["Outfit"],
 		},
 
 		fontWeight: {
@@ -20,7 +21,10 @@ export default {
 
 		container: {
 			center: true,
-			padding: "2rem",
+			padding: {
+				DEFAULT: "2rem",
+				fhd: "8rem",
+			},
 		},
 
 		extend: {

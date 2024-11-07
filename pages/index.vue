@@ -1,20 +1,41 @@
 <template>
-	<div>
-		<h1 class="uppercase text-7xl font-bold">testing font R</h1>
-		<p class="text-3xl">Animation typewriter style using GSAP</p>
+	<div style="height: 2000px">
+		<section class="h-[100dvh] flex flex-col justify-center relative">
+			<div class="container">
+				<div class="max-w-4xl">
+					<h1
+						class="font-sans font-bold text-8xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-white mb-3 capitalize leading-tight">
+						Enhance your digital presence
+					</h1>
+					<p class="text-3xl">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+						eum voluptas ex, libero quia fuga commodi, corporis unde velit
+						praesentium aliquid. Earum facilis ex qui, voluptatibus ratione
+						autem molestiae aspernatur.
+					</p>
+				</div>
+			</div>
 
-		<p class="mt-20 text-xl">
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Id cupiditate
-			molestiae fugiat nihil exercitationem doloribus delectus, magni eos natus
-			earum iure deleniti dicta aut illo obcaecati ipsam aperiam officiis harum!
-			Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur
-			labore sapiente esse, iure nihil necessitatibus modi nostrum cum amet
-			quod? Voluptate in quam minus maiores voluptas veritatis soluta natus
-			neque.
-		</p>
+			<!-- <div
+				class="absolute bottom-5 w-full flex items-center justify-center space-x-10">
+				<div class="flex items-center space-x-1">
+					<Letter class="key" letter="R" />
+					<Letter class="key" letter="O" />
+					<Letter class="key" letter="O" />
+					<Letter class="key" letter="T" />
+				</div>
+				<div class="flex items-center space-x-1">
+					<Letter class="key" letter="T" />
+					<Letter class="key" letter="R" />
+					<Letter class="key" letter="E" />
+					<Letter class="key" letter="E" />
+				</div>
+				<IconsEnter class="key-enter" />
+			</div> -->
+		</section>
 
-		<div class="my-20 flex items-center justify-center">
-			<div class="w-1/3 relative group">
+		<!-- <div class="flex items-center justify-center">
+			<div class="lg:w-1/3 relative group">
 				<NuxtImg src="/img/team/kia-black.jpg" class="" />
 				<NuxtImg
 					src="/img/team/kia-color.jpg"
@@ -29,48 +50,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- device detection -->
-		<!-- <div class="mt-10">
-			<p>Device detection:</p>
-			<p>is mobile: {{ $device.isMobile }}</p>
-			<p>is tablet: {{ $device.isTablet }}</p>
-			<p>is desktop: {{ $device.isDesktop }}</p>
-		</div> -->
-
-		<!-- static image -->
-		<!-- <div class="container mt-10">
-			<p>Nuxt-img component:</p>
-			<NuxtImg src="/static.jpeg" class="w-full lg:w-1/2" />
-		</div> -->
-
-		<!-- api data -->
-		<!-- <div class="container mt-10">
-			<ul class="grid grid-cols-1 md:grid-cols-2">
-				<li
-					v-for="article in articles.data"
-					:key="article.id"
-					class="border flex flex-col p-3 space-y-2">
-					<span>Article title: {{ article.title }}</span>
-					<span>Article status: {{ article.status }}</span>
-					<ul class="flex flex-wrap gap-2">
-						<li
-							v-for="tag in article.tags"
-							:key="tag"
-							class="border border-white rounded-full p-1">
-							{{ tag }}
-						</li>
-					</ul>
-				</li>
-			</ul>
 		</div> -->
 	</div>
 </template>
 
 <script setup>
-import vivus from "vivus";
-
 const { $gsap } = useNuxtApp();
 const preloader = usePreloader();
 
@@ -79,6 +63,57 @@ const runtimeConfig = useRuntimeConfig();
 const { data: articles } = await useFetch(
 	`${runtimeConfig.public.apiBase}/articles`,
 );
+
+watch(
+	() => preloader.pageMounted.value,
+	(newValue, oldValue) => {
+		if (newValue) {
+			const lettersTl = $gsap.timeline({
+				onComplete: () => enterTl().play(),
+			});
+			const letters = $gsap.utils.toArray(".key .letter");
+
+			letters.forEach((letter, i) => {
+				const anim = $gsap
+					.timeline({ defaults: { duration: 0.2 } })
+					.to(letter, {
+						y: 10,
+						backgroundColor: "#3BBD9E",
+					})
+					.to(letter, {
+						y: 4,
+						backgroundColor: "white",
+					});
+
+				lettersTl.add(anim, i * 0.1);
+			});
+		}
+	},
+);
+
+const enterTl = () => {
+	const tl = $gsap.timeline({
+		defaults: { duration: 0.2 },
+	});
+	tl.to(".enter-parent", { y: 15.5 })
+		.to(
+			".enter-child",
+			{
+				fill: "#3BBD9E",
+			},
+			"<",
+		)
+		.to(".enter-parent", { y: 0 })
+		.to(
+			".enter-child",
+			{
+				fill: "white",
+			},
+			"<",
+		);
+
+	return tl;
+};
 </script>
 
 <style lang="postcss" scoped>
